@@ -1,5 +1,4 @@
 import pymysql
-import time
 
 db = pymysql.Connect('172.18.228.112', 'root', '3nOI9ca45%$#8Gm7EH', 'gcyh_user')
 cursor = db.cursor()
