@@ -3,6 +3,7 @@
 '''
 
 import paramiko
+import re
 
 services_list = ['172.18.228.126','172.18.228.127']
 port_list = [['7155','activity'],['7010','api'],['7140','hbase'],
@@ -15,16 +16,22 @@ port_list = [['7155','activity'],['7010','api'],['7140','hbase'],
 
 for services in services_list:
     for port in port_list:
-        host = ''.join(['http://',services,':',port[0]])
+        host = ''.join(['http://',services,':',port[0]])        #字符串拼接
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect('172.18.228.126', 22, username='root', password='qazwwssxedc-!@#$%123453edw', timeout=20)
         stadin,stdout,stderr = client.exec_command('wget %s' % host)
         result = stdout.read().decode()
-        err = stderr.read()
+        err = str(stderr.read())
         client.close()
+        b = re.search(r'\b302', err)
+        c = re.search(r'\b200', err)
+        d = re.search(r'\b404', err)
         if len(err)>195:
-            print('success')
+            if b or d or c != None:
+                print('success', err)
+            else:
+                exit(1)
         else:
             print('%s ,%s , %s ,失败' %(services,port[0],port[1]))
             exit(1)

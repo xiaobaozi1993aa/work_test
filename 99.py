@@ -1,7 +1,20 @@
-a = '--2019-02-20 14:30:05--  http://172.18.228.126:7095/Connecting to 172.18.228.126:7095... failed: Connection refused.'
-print(len(a))
+import re
 
-b = '--2019-02-20 14:29:55--  http://172.18.228.127:7095/Connecting to 172.18.228.127:7095... connected.HTTP request sent, awaiting response... 404 2019-02-20 14:29:55 ERROR 404: (no description).'
-print(len(b))
+b = re.search(r'\b302', err)
+c = re.search(r'\b200', err)
+d = re.search(r'\b404', err)
+
+if len(err) > 195:
+    if b or d or c != None:
+        print('success', err)
+    else:
+        exit(1)
+else:
+    print('%s ,%s , %s ,失败' % (services, port[0], port[1]))
+    exit(1)
+
+
+
+
 
 
