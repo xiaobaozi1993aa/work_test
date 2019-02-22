@@ -6,8 +6,8 @@ import paramiko
 import re
 
 services_list = ['172.18.228.126','172.18.228.127']
-port_list = [['7155','activity'],['7010','api'],['7140','hbase'],
-              ['7130','boss'],['7110','common'],['7000','discovery'],
+port_list = [['7155','activity'],['7140','hbase'],
+              ['7130','boss'],
               ['7100','file'],['7005','getway'],
               ['7115','information'],['7145','job'],['7165','nest'],
               ['7125','order'],['7135','redpacket'],['7175','redpacket_consumer'],
@@ -24,15 +24,17 @@ for services in services_list:
         result = stdout.read().decode()
         err = str(stderr.read())
         client.close()
-        b = re.search(r'\b302', err)
-        c = re.search(r'\b200', err)
         d = re.search(r'\b404', err)
         if len(err)>195:
-            if b or d or c != None:
+            if d != None:
                 print('success', err)
             else:
+                print('%s ,%s , %s ,失败' % (services, port[0], port[1]))
                 exit(1)
+
         else:
             print('%s ,%s , %s ,失败' %(services,port[0],port[1]))
             exit(1)
+
+
 
