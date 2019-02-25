@@ -27,11 +27,10 @@ for services in services_list:
         d = re.search(r'\b404', err)
         if len(err)>195:
             if d != None:
-                print('success', err)
+                print('success')
             else:
                 print('%s ,%s , %s ,失败' % (services, port[0], port[1]))
                 exit(1)
-
         else:
             print('%s ,%s , %s ,失败' %(services,port[0],port[1]))
             exit(1)
