@@ -4,6 +4,8 @@
 
 '''
 import requests
+from ks_00_sign import *
+import random
 
 host = 'http://test_gateway.guochuangyuanhe.com/'
 #host = 'https://api.guochuangyuanhe.com/'
@@ -16,22 +18,26 @@ def login(mobile, password):
     api = ''.join([host, path])
     data = {"username": mobile, "password": password, "systemCode": 1, "loginType": 2}
     r = requests.post(url=api, data=data).json()
-    #print(data)
-    #print(r)
     token = r.get('response','未获取token')
+    print(mobile)
     return token
 
-#请求头
-def add_token(token):
+#请求方式
+def http_request(api, method, token,**kwargs):
+    h_nonce = random.randint(1, 10000) + get_time()
     headers = {
-        "Accept": "*/*",
-        "h-api-token": token,
-        "h-admin-token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl91dWlkIiwiaC10ZW5hbnQtY29kZSI6ImdjeWgiLCJsb2dpbklkIjoiYWRtaW5fdXVpZCIsImV4cCI6MTU2MjE1MDI1MCwiaWF0IjoxNTQ0ODcwMjQ2NTMxfQ.kMySAJzhzB-lFkhliSh2S1nYGQMaug2JIPs2ugShZU1wTTcV4n4Edb2pOHgvaRGMSe4Gj6S82BggkVYobu-j1g",
-        "h-time": "1565554375874",
-        "h-tenant-code": "gcyh",
-        "h-nonce": "b9970e650c5147c3a964f9e8f39b7920"
+        "h-time": str(get_time() * 1000),
+        "h-nonce": str(h_nonce),
+        "h-tenant-code": 'gcyh'
     }
-    return headers
+    params = dict(headers, **kwargs)
+    headers["h-sign"] = encode_md5(math_sign(**params))
+    headers['h-api-token']=token
+    if method.lower()=='get':
+        response = requests.get(url=api, data=params, headers=headers).json()
+    if method.lower()=='post':
+        response = requests.post(url=api, data=params, headers=headers).json()
+    return response
 
 #开红包
 def open_redpacket(headers,r_uuid):

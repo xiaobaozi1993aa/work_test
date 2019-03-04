@@ -16,8 +16,8 @@ def add_region_delegate(headers,rid,safe_pd):
     print(r)
 
 if __name__ == '__main__':
-    phone = ['19931996000', '19931995090', '19931995091', '19931993002']
-    #phone = ['19931996000']
+    #phone = ['19931996000', '19931995090', '19931995091', '19931993002']
+    phone = ['19931993000']
     for mobile in phone:
         password = 123456
         rid = 2115

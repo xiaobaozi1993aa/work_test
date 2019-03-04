@@ -30,7 +30,7 @@ def binding_relationship(uuid,headers):
 #升级代理
 def upgrade(headers):
     path = '/api/v1/user/agent/upgrade_agent'
-    data = {'channelCode': 'ios', 'payType': '101', 'originalMoney': 499,'safetyCode':199308}
+    data = {'channelCode': 'ios', 'payType': '10001', 'originalMoney': 499,'safetyCode':199308}
     api = ''.join([host, path])
     r = requests.post(url=api, data=data, headers=headers).json()
     print(r)
@@ -38,7 +38,7 @@ def upgrade(headers):
 
 if __name__ == '__main__':
     password = 123456
-    phone = (a for a in range(19931996000,19931996001))
+    phone = (a for a in range(19911998000,19911998005))
     #phone = ['13066909086']
     for aa in phone:
         mobile = str(aa)

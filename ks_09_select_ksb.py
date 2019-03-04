@@ -18,8 +18,8 @@ def select_coin(headers):
 
 
 if __name__ == '__main__':
-    #phone = ['19930808104']
-    phone = (a for a in range(19931997000,19931997100))
+    phone = ['17620340622']
+    #phone = (a for a in range(19931993000))
     password = 123456
     for mobile in phone:
         token = login(mobile,password)

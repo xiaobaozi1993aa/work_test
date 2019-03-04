@@ -63,7 +63,7 @@ def login(mobile, password):
 
 if __name__ == '__main__':
     password = 123456
-    phone = (a for a in range(19931998000,19931998100))
+    phone = (a for a in range(19911998000,19911998005))
     #phone= ['18823303216']
     for mobile in phone:
         get_uuid(mobile)

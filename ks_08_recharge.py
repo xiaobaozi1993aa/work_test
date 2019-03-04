@@ -29,8 +29,8 @@ def hash_update(uuid):
     d = r.hset(name = 'user-consumer:TenantWalletServiceImpl:accountInfo',key = 'market_In',value=0)
     print(d)    #公司出
 if __name__ == '__main__':
-    #phone = (a for a in range(19931997000,19931997100))
-    phone = ['17620414251']
+    phone = (a for a in range(19931992020,19931992099))
+    #phone = ['17620340622']
     #phone = ['19931996000', '19931995090', '19931995091', '19931993002','19931993013']
 
     for mobile in phone:

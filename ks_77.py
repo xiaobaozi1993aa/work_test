@@ -7,7 +7,7 @@ import pymysql
 db = pymysql.Connect('172.18.228.112', 'root', '3nOI9ca45%$#8Gm7EH', 'gcyh_user')
 cursor = db.cursor()
 aaaa = ('0',)
-aa = '5a7c09e6320d46f7b51664f016d1110c'
+aa = 'f1c041cb379942a79aba5107d88b8473'
 n = -1
 def get_upper(uuid,n):
     cursor.execute("select inviter_account_uuid from user_invite where user_account_uuid = '%s'" % uuid)

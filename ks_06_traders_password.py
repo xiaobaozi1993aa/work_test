@@ -45,7 +45,7 @@ def get_messafe_code(mobile):
     cursor.execute('select content from send where mobile = "%s" order by id desc limit 1' % mobile)
     data = cursor.fetchone()
     mcode = str(data)[22:28]
-    #print(mcode)
+    print(mcode)
     return mcode
 
 #绑定交易密码
@@ -60,7 +60,7 @@ def traders_password(mobile,headers,mcode):
 
 if __name__ == '__main__':
     password = 123456
-    phone = (a for a in range(19931997000,19931997100))
+    phone = (a for a in range(19911998000,19911998005))
     #phone = ['19931996020']
     for mobile in phone:
         token = login(mobile, password)
