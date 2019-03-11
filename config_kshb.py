@@ -8,7 +8,7 @@ import time
 
 class TestLog(object):
 
-    def __init__(self, logger=None):
+    def __init__(self,logger=None):
 
         # 创建一个logger
         self.logger = logging.getLogger(logger)
@@ -17,12 +17,12 @@ class TestLog(object):
         self.log_time = time.strftime("%Y_%m_%d_")
         self.log_path = "D:\\快收\\ks_log\\"
         self.log_name = self.log_path + self.log_time + 'test.log'
-        fh = logging.FileHandler(self.log_name, 'w', encoding='utf-8') # a是追加模式
+        fh = logging.FileHandler(self.log_name, 'a', encoding='utf-8') # a是追加模式
         fh.setLevel(logging.INFO)
 
         # 再创建一个handler，用于输出到控制台
         ch = logging.StreamHandler()
-        ch.setLevel(logging.ERROR)
+        ch.setLevel(logging.INFO)
 
         # 定义handler的输出格式
         formatter = logging.Formatter(
