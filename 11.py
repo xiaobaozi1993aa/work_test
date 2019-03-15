@@ -1,10 +1,3 @@
-import datetime
+a = (1,23,34)
 
-
-a = '本我'
-b = '自我'
-c = '超我'
-
-
-print()
-
+print(a[1])

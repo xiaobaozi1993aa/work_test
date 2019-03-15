@@ -1,7 +1,9 @@
 import pymysql
 from ks_02_open_redpacket_more import login,http_request
+from loger_test import TestLog
+logger = TestLog().get_log()
 
-db = pymysql.Connect('172.18.228.112', 'root', '3nOI9ca45%$#8Gm7EH', 'gcyh_nest')
+db = pymysql.Connect('172.18.228.112', 'root', '2nOI8ca76%$#1Gm4EH', 'gcyh_nest')
 cursor = db.cursor()
 
 time_api = 'https://test_gateway.guochuangyuanhe.com/api/v1/nest/timeInfo/queryNestTimeInfo'
@@ -15,6 +17,7 @@ def get_frist_time(token,i):
     r = http_request(api=time_api, method='post', token=token, **data)
     print(data)
     aa = r.get('response').get('current').get('nestTimeInfoId')
+    logger.info(aa)
     return aa
 
 #循环购买
@@ -22,6 +25,7 @@ def buy_bee(token,info_id):
     data = {"price": 1, "channelCode": "ios", "nestTimeInfoId": info_id, "payType": "10001",
             "safetyCode": "123456", "longitude": "113.021121", "latitude": "25.776524"}
     r = http_request(api=buy_api, method='post', token=token, **data)
+    logger.info(r)
     return r
 
 if __name__ == '__main__':

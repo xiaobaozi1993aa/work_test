@@ -6,6 +6,8 @@
 import requests
 from ks_00_sign import *
 import random
+from loger_test import TestLog
+logger = TestLog().get_log()
 
 host = 'http://test_gateway.guochuangyuanhe.com/'
 #host = 'https://api.guochuangyuanhe.com/'
@@ -19,7 +21,7 @@ def login(mobile, password):
     data = {"username": mobile, "password": password, "systemCode": 1, "loginType": 2}
     r = requests.post(url=api, data=data).json()
     token = r.get('response','未获取token')
-    print(mobile)
+    logger.info('账号: {} 密码: {}'.format(mobile,password))
     return token
 
 #请求方式
@@ -28,15 +30,21 @@ def http_request(api, method, token,**kwargs):
     headers = {
         "h-time": str(get_time() * 1000),
         "h-nonce": str(h_nonce),
-        "h-tenant-code": 'gcyh'
+        "h-tenant-code": 'gcyh',
+        "h-system-code": 'ios'
     }
     params = dict(headers, **kwargs)
     headers["h-sign"] = encode_md5(math_sign(**params))
     headers['h-api-token']=token
+    #print(headers)
     if method.lower()=='get':
         response = requests.get(url=api, data=params, headers=headers).json()
+        logger.info(params)
+        logger.info(headers)
+
     if method.lower()=='post':
         response = requests.post(url=api, data=params, headers=headers).json()
+        logger.info(params)
     return response
 
 #开红包
